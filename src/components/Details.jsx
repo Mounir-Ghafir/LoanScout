@@ -1,4 +1,5 @@
 import { getMonthlyPayment, getTotalCost, getTotalInterest } from './Culc.jsx'
+import "./Details.css"
 
 function getDetails(offer, isRecommended) {    
     const target = document.getElementById("details")
@@ -8,22 +9,33 @@ function getDetails(offer, isRecommended) {
     const totalInterest = getTotalInterest(totalCost, offer.amount);
 
     target.innerHTML = `
-        <div>
-            <div>
-                <h1>${offer.provider}</h1>
-                ${isRecommended ? '<span>RECOMMENDED</span>' : ''}
+        <div class="details-panel">
+            <div class="details-header">
+                <div>
+                    <h1>${offer.provider}</h1>
+                    <p>Loan breakdown for ${offer.durationYears} years</p>
+                </div>
+                ${isRecommended ? '<span class="recommend-badge">Recommended</span>' : ''}
             </div>
-            <p>Duration: ${offer.durationYears} years</p> 
             
-            <div>
-                <p>Monthly Payment: €${monthlyPayment.toFixed(2)}</p>
-                <p>Total Cost: €${totalCost.toFixed(2)}</p>
-                <p>Total Interest: €${totalInterest.toFixed(2)}</p>
+            <div class="calc-section">
+                <div class="calc-item">
+                    <span class="calc-label">Monthly Payment</span>
+                    <span class="calc-value highlight">€${monthlyPayment.toFixed(2)}</span>
+                </div>
+                <div class="calc-item">
+                    <span class="calc-label">Total Interest</span>
+                    <span class="calc-value">€${totalInterest.toFixed(2)}</span>
+                </div>
+                <div class="calc-item">
+                    <span class="calc-label">Total Repayment</span>
+                    <span class="calc-value">€${totalCost.toFixed(2)}</span>
+                </div>
             </div>
 
-            <div>
-                <p>Loan Amount: €${offer.amount.toLocaleString()}</p>
-                <p>Interest Rate: ${offer.interestRate}%</p>
+            <div class="details-footer">
+                <p>Principal: €${offer.amount.toLocaleString()}</p>
+                <p>Annual Interest Rate: ${offer.interestRate}%</p>
             </div>
         </div>
     `
